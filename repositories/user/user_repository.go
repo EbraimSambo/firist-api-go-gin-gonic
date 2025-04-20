@@ -57,3 +57,24 @@ func (ur *UserRepository) CreateUser(user model.User) (model.User, error) {
 }
 
 
+func (ur *UserRepository) GetUserById(id int) (*model.User, error) {
+	query := `SELECT id, name, email, age FROM users WHERE id = $1`
+
+	var user model.User
+	err := ur.connection.QueryRow(query, id).Scan(
+		&user.ID,
+		&user.Name,
+		&user.Email,
+		&user.Age,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Não é erro, apenas não existe
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &user, nil
+}

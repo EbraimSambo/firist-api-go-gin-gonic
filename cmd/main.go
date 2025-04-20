@@ -28,6 +28,7 @@ func main() {
 
 	server.GET("/users", UserController.GetUsers);
 	server.POST("/users", UserController.CreateUser);
+	server.POST("/users/:id", UserController.GetUser);
 	
 	server.Run(":8000")
 }

@@ -31,3 +31,10 @@ func (us * UserUseCase) CreateUser(user model.User)(model.User, error){
 
 	return newUser, nil
 }
+
+
+func (us *UserUseCase) GetUserById(id int) (*model.User, error) {
+	return us.repository.GetUserById(id)
+}
+
+
